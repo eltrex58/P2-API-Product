@@ -1,9 +1,10 @@
-package com.product;
+package com.product.api.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.product.exception.ServiceCategoryException;
+import com.product.api.entity.Category;
 
 import java.util.ArrayList;
 
@@ -158,9 +159,10 @@ public class ServiceCategory {
      */
     @Override
     public String toString() {
-        return categories.stream()
+        /*return categories.stream()
                 .filter(category -> category.getStatus() == 1)
                 .map(Category::toString)
-                .collect(Collectors.joining(", ", "[", "]"));
+                .collect(Collectors.joining(", ", "[", "]"));*/
+        return categories.toString();
     }
 }

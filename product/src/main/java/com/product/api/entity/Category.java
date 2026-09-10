@@ -1,4 +1,4 @@
-package com.product;
+package com.product.api.entity;
 /**
  * Clase qque representa una categoría en el sistema.
  */
