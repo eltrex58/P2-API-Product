@@ -10,8 +10,8 @@ import com.product.api.repository.RepoCategory;
 
 @Service 
 public class SvcCategoryImp implements SvcCategory {
-
-    final RepoCategory repo;
+    @Autowired 
+    RepoCategory repo;
     
     SvcCategoryImp (RepoCategory repo){
         this.repo = repo;
