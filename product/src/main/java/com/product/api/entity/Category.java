@@ -1,4 +1,16 @@
 package com.product.api.entity;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity 
+@Table (name = "category")
 /**
  * Clase qque representa una categoría en el sistema.
  */
@@ -12,10 +24,26 @@ public class Category {
      * parentCategoryId: Identificador de la categoría padre (si existe).
      * status: Estado de la categoría (activo/inactivo). 
      */
-    private Integer category_id;    
+    @Id 
+    @GeneratedValue (strategy=GenerationType.IDENTITY)
+    @JsonProperty ("categoryID")
+    @Column (name="category_id") 
+    private Integer category_id;
+    
+    @JsonProperty("Category")
+    @Column(name="category")
     private String category;
+
+    @JsonProperty("tag")
+    @Column(name="tag")
     private String tag;
+
+    @JsonProperty("parent_Category_Id")
+    @Column(name="parent_Category_Id")
     private Integer parentCategoryId;
+
+    @JsonProperty("status")
+    @Column(name="status")
     private Integer status;
     
     /*

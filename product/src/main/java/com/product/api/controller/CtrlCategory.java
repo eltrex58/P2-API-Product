@@ -1,22 +1,28 @@
 package com.product.api.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.product.api.entity.Category;
-import com.product.api.service.ServiceCategory;
+import com.product.api.service.SvcCategory;
 
 @RestController 
 @RequestMapping("/category")
-public class CtrlProduct {
+public class CtrlCategory {
+
+    final SvcCategory svc;
+
+    CtrlCategory (SvcCategory svc) {
+        this.svc = svc;
+    }
 
     @GetMapping
-    public String getCategories() {
-        ServiceCategory service = new ServiceCategory();
-        service.createCategory(new Category("Ropa", "RP", null));
-        service.createCategory(new Category("Calzado", "CLZD", 1));
-	    return service.toString();
+    public List<Category> getCategories() {
+        return svc.getCategories();
     }
 
     
