@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import com.product.api.entity.Category;
@@ -11,7 +12,7 @@ import com.product.api.entity.Category;
 @Repository 
 public interface RepoCategory extends JpaRepository<Category,Integer>{
     @Query(value = "SELECT * FROM category", nativeQuery = true)
-    List<Category> getCategories();
+    ResponseEntity<List<Category>> getCategories();
 
-    List<Category> findByStatusOrderByCategory(Integer status);
+    ResponseEntity<List<Category>> findByStatusOrderByCategory(Integer status);
 }
