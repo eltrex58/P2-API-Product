@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +20,6 @@ import com.product.api.entity.Category;
 import com.product.api.service.SvcCategory;
 
 import jakarta.validation.Valid;
-
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController 
@@ -34,7 +35,7 @@ public class CtrlCategory {
 
     @GetMapping 
     public ResponseEntity<List<Category>> findAll() {
-        return ResponseEntity.ok(svc.findAll())
+        return ResponseEntity.ok(svc.findAll());
     }
 
     @GetMapping("/active")
@@ -47,25 +48,25 @@ public class CtrlCategory {
         return ResponseEntity.ok(svc.findChilds(id));
     }
 
-    @GetMapping 
+    @PostMapping 
     public ResponseEntity<String> create(@Valid @RequestBody DtoCategoryIn in){
         svc.create(in);
         return ResponseEntity.ok("La categoría ha sido registrada");
     }
 
-    @GetMapping("/{id}") 
+    @PutMapping("/{id}") 
     public ResponseEntity<String> update(@PathVariable("id") Integer id, @Valid @RequestBody DtoCategoryIn in){
         svc.update(in, id);
         return ResponseEntity.ok("La categoría ha sido actualizada");
     }
     
-    @GetMapping("/{id}/enable") 
+    @PatchMapping("/{id}/enable") 
     public ResponseEntity<String> enable(@PathVariable("id") Integer id){
         svc.enable(id);
         return ResponseEntity.ok("La categoría ha sido activada");
     }
 
-    @GetMapping("/{id}/disable") 
+    @PatchMapping("/{id}/disable") 
     public ResponseEntity<String> disable(@PathVariable("id") Integer id){
         svc.disable(id);
         return ResponseEntity.ok("La categoría ha sido desactivada");
