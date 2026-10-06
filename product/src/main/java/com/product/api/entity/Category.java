@@ -26,16 +26,16 @@ public class Category {
      */
     @Id 
     @GeneratedValue (strategy=GenerationType.IDENTITY)
-    @JsonProperty ("categoryID")
+    @JsonProperty ("category_id")
     @Column (name="category_id") 
-    private Integer category_id;
+    private Integer categoryId;
     
     @JsonProperty("Category")
-    @Column(name="category")
+    @Column(name="category", unique = true)
     private String category;
 
     @JsonProperty("tag")
-    @Column(name="tag")
+    @Column(name="tag", unique = true)
     private String tag;
 
     @JsonProperty("parent_Category_Id")
@@ -71,7 +71,7 @@ public class Category {
      * @return El ID de la categoría.
      */
     public Integer getCategoryId() {
-        return category_id;
+        return categoryId;
     }
 
     /**
@@ -101,7 +101,7 @@ public class Category {
      * @param category_id El ID de la categoría a establecer.
      */
     public void setCategoryId(Integer category_id) {
-        this.category_id = category_id;
+        this.categoryId = category_id;
     }
 
     /**
@@ -145,7 +145,7 @@ public class Category {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("{")
-        .append(category_id)
+        .append(categoryId)
         .append(',')
         .append(category)
         .append(',')
