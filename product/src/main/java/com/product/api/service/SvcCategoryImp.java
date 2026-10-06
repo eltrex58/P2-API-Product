@@ -51,8 +51,13 @@ public class SvcCategoryImp implements SvcCategory {
 
     @Override 
     public void create(DtoCategoryIn in){
-        if(repo.findById(in.getParentCategoryId()).get().getCategoryId() == 0)
-            throw new ApiException(HttpStatus.BAD_REQUEST, "La categoría padre está desactivada.");
+        if(in.getParentCategoryId() != null) {
+            if(repo.findById(in.getParentCategoryId()).isEmpty()){
+            throw new ApiException(HttpStatus.NOT_FOUND, "La categoría padre no existe");
+            }
+            if(repo.findById(in.getParentCategoryId()).get().getCategoryId() == 0)
+                throw new ApiException(HttpStatus.BAD_REQUEST, "La categoría padre está desactivada.");
+        }
         try {
             Category category = new Category();
             category.setCategory(in.getCategory());
@@ -72,7 +77,11 @@ public class SvcCategoryImp implements SvcCategory {
     @Override 
     public void update(DtoCategoryIn in, Integer id){
         validateId(id);
-        validateParentId(in.getParentCategoryId(), id);
+        if (in.getParentCategoryId() != null){
+            validateParentId(in.getParentCategoryId());
+            if(in.getParentCategoryId() == id)
+                throw new ApiException(HttpStatus.BAD_REQUEST, "La categoría no puede ser padre de sí misma");
+        }
         try {
             Category category = repo.findById(id).get();
             category.setCategory(in.getCategory());
@@ -119,13 +128,11 @@ public class SvcCategoryImp implements SvcCategory {
         }
     }
 
-    private void validateParentId(Integer parentId, Integer id){
+    private void validateParentId(Integer parentId){
         if(repo.findById(parentId).isEmpty()){
             throw new ApiException(HttpStatus.NOT_FOUND, "La categoría padre no existe");
         }
         if(repo.findById(parentId).get().getCategoryId() == 0)
             throw new ApiException(HttpStatus.BAD_REQUEST, "La categoría padre está desactivada.");
-        if(parentId == id)
-            throw new ApiException(HttpStatus.BAD_REQUEST, "La categoría no puede ser padre de sí misma");
     }
 }
