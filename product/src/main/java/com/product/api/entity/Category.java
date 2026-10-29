@@ -38,8 +38,8 @@ public class Category {
     @Column(name="tag", unique = true)
     private String tag;
 
-    @JsonProperty("parent_Category_Id")
-    @Column(name="parent_Category_Id")
+    @JsonProperty("parent_category_id")
+    @Column(name="parent_category_id")
     private Integer parentCategoryId;
 
     @JsonProperty("status")
