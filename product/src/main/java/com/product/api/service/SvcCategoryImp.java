@@ -2,6 +2,7 @@ package com.product.api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class SvcCategoryImp implements SvcCategory {
     @Override 
     public ResponseEntity<List<Category>> getCategories(){
         try{
-            return repo.getCategories();
+            return new ResponseEntity<>(repo.getCategories(), HttpStatus.OK);
         }catch (DataAccessException e){
             throw new DBAccessException(e);
         }
@@ -31,6 +32,6 @@ public class SvcCategoryImp implements SvcCategory {
 
     @Override 
     public ResponseEntity<List<Category>> getActiveCategories(){
-        return repo.findByStatusOrderByCategory(1);
+        return new ResponseEntity<>(repo.findByStatusOrderByCategory(1), HttpStatus.OK) ;
     }
 }
